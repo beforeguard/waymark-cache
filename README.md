@@ -28,6 +28,35 @@ To run the same validation in a container:
 docker compose run --rm test
 ```
 
+## Chapter 1: minimal in-memory cache
+
+`IKeyValueCache` is the API boundary for a single-node, process-local cache. It
+stores non-null byte arrays under non-null, non-empty string keys. The string
+comparison is ordinal.
+
+- `GetAsync` returns a `CacheLookupResult`. A missing entry has `Found == false`
+  and `Value == null`; a found value is never null.
+- `PutAsync` stores a new defensive copy and replaces any existing value.
+- `DeleteAsync` returns whether a value existed before the deletion.
+- `PutAsync` rejects a null value. Every method rejects a null key with
+  `ArgumentNullException` and an empty key with `ArgumentException`.
+- Every method checks its `CancellationToken` before validation and immediately
+  before changing or reading cache state. A canceled operation has no effect.
+- Values are copied both on put and on get. Mutating a caller's original array or
+  a returned result therefore cannot mutate cache state.
+
+The asynchronous method signatures preserve a client-compatible shape for later
+chapters, although the in-memory implementation currently completes without I/O.
+
+Access is thread-safe. Mutating and lookup operations are serialized in completion
+order: the state change occurs before its already-completed `Task` is returned, so
+the last completed operation on a key wins. A later overlapping `PutAsync` can
+replace an earlier one, while a later overlapping `DeleteAsync` can remove it.
+
+This chapter deliberately has no TTL, expiration, capacity, eviction, memory
+accounting, metrics, networking, persistence, replication, membership, routing, or
+distribution.
+
 ## Learning workflow
 
 Each chapter follows:
