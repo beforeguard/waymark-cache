@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Waymark.Cache/Waymark.Cache.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Waymark.Cache.Tests/Waymark.Cache.Tests.csproj" />
+  </Folder>
+</Solution>
