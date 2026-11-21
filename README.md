@@ -1,8 +1,13 @@
 # Waymark Cache
 
-Waymark is an educational distributed key/value cache built in C#/.NET. The project
-prioritizes explicit correctness guarantees, bounded resources, reproducible
-failures, and learning each systems concept in small reviewable steps.
+Waymark is an **educational distributed-systems project** that builds a key/value
+cache in C#/.NET. It prioritizes explicit correctness guarantees, bounded resources,
+reproducible failures, and learning each systems concept in small reviewable steps.
+
+> **Learning-focused, production-minded, not production-ready.** Waymark is a place
+> to study routing, replication, consistency, failure handling, observability, and
+> performance with careful engineering discipline. It should not be used as an
+> authoritative data store or as a production Redis replacement.
 
 ## Prerequisites
 
@@ -38,7 +43,6 @@ Each chapter follows:
 - `src/Waymark.Cache` - cache implementation and public contracts
 - `tests/Waymark.Cache.Tests` - unit and invariant tests
 
-The cache is not an authoritative data store and does not target Redis command,
-protocol, or cluster compatibility unless a later optional chapter explicitly adds
-that subset.
+Waymark does not target Redis command, protocol, or cluster compatibility unless a
+later optional chapter explicitly adds that subset.
 
